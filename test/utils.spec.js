@@ -82,9 +82,15 @@ describe('SatellizerUtils', function() {
         port: '',
         pathname: '/test'
       });
+      var url4 = this.utils.getFullUrlPath({
+        protocol: 'http:',
+        href: 'http://localhost:3000/test',
+        pathname: '/test'
+      });
       expect(url1).toEqual('http://localhost:3000/');
       expect(url2).toEqual('http://google.com:80/test');
       expect(url3).toEqual('https://google.com:443/test');
+      expect(url4).toEqual('http://localhost:3000/test');
     });
 
     it('should normalize full url from createElement("a")', function() {

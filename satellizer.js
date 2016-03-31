@@ -827,10 +827,16 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       }])
     .service('SatellizerUtils', function() {
       this.getFullUrlPath = function(location) {
-        var isHttps = location.protocol === 'https:';
-        return location.protocol + '//' + location.hostname +
-          ':' + (location.port || (isHttps ? '443' : '80')) +
-          (/^\//.test(location.pathname) ? location.pathname : '/' + location.pathname);
+        if(!location.protocol) {
+          var temp = document.createElement('a');
+
+          temp.href = location.href;
+
+          location = temp;
+        }
+
+        return location.protocol + '//' + location.host +
+            (/^\//.test(location.pathname) ? location.pathname : '/' + location.pathname);
       };
 
       this.camelCase = function(name) {
