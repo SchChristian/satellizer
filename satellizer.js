@@ -835,8 +835,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           location = temp;
         }
 
-        return location.protocol + '//' + location.host +
-            (/^\//.test(location.pathname) ? location.pathname : '/' + location.pathname);
+        return location.protocol + '//' + location.hostname
+            + (location.port && location.port !== '80' && location.port !== '443' ? location.port : '') //Append the port only when it's not the default Port
+            +(/^\//.test(location.pathname) ? location.pathname : '/' + location.pathname);
       };
 
       this.camelCase = function(name) {
